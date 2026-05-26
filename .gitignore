@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python (if any local scripts get added later)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Node (in case dev tooling is added)
+node_modules/
+npm-debug.log*
+
+# Build / temp
+*.log
+.cache/
