@@ -1463,7 +1463,6 @@
       </style>
 
       <h2 class="title is-3 has-text-centered" style="margin-bottom: 14px;">Task-Focused Streaming Episodic Memory Demo</h2>
-      <nav class="svm-demo-nav" id="svmDemoNav" aria-label="Demo video navigation"></nav>
       <div class="svm-rows" id="svmRows"></div>
 
       <script>
@@ -3857,9 +3856,12 @@
           function buildDemoNav(demos) {
             const nav = document.getElementById("svmDemoNav");
             if (!nav) return;
-            nav.innerHTML = demos.map((demo, index) => (
-              `<a href="#${demo.id}">Video ${index + 1}</a>`
-            )).join("");
+            let comparisonNumber = 0;
+            nav.innerHTML = demos.map((demo) => {
+              if (isPhasedDemo(demo)) return "";
+              comparisonNumber += 1;
+              return `<a href="#${demo.id}">Video ${comparisonNumber}</a>`;
+            }).join("");
           }
 
           function scrollToDemoHash({ behavior = "auto" } = {}) {
@@ -3886,11 +3888,11 @@
             });
           }
 
-          function buildRow(demo, index) {
+          function buildRow(demo, comparisonNumber) {
             const row = document.createElement("div");
             row.className = "svm-card";
             row.id = demo.id;
-            const displayLabel = `Video ${index + 1}`;
+            const displayLabel = comparisonNumber ? `Video ${comparisonNumber}` : "";
             const phasedClass = demo.layout === "phased" ? " phased" : "";
             const videoControlsAttr = "controls";
             const phasedQuestionsHtml = demo.layout === "phased" ? `
@@ -3905,7 +3907,7 @@
                 <div class="svm-video-card">
                   <div class="svm-head">
                     <div>
-                      <div class="svm-label">${displayLabel}</div>
+                      ${displayLabel ? `<div class="svm-label">${displayLabel}</div>` : ""}
                       ${demo.url ? `<a class="svm-video-url" href="${demo.url}" target="_blank" rel="noopener noreferrer">${demo.youtubeId ? "Watch on YouTube" : "Open video source"}</a>` : ""}
                     </div>
                   </div>
@@ -4009,9 +4011,42 @@
 
           window.addEventListener("resize", () => updateScrollableRegions(rowsRoot));
 
-          buildDemoNav(DEMOS);
-          DEMOS.forEach(buildRow);
-          bindDemoNavScroll();
+          const comparisonDemos = DEMOS.filter((demo) => !isPhasedDemo(demo));
+          let comparisonCounter = 0;
+          let comparisonHeadingInserted = false;
+          DEMOS.forEach((demo) => {
+            if (!isPhasedDemo(demo) && !comparisonHeadingInserted) {
+              const heading = document.createElement("h2");
+              heading.className = "title is-3 has-text-centered svm-comparison-title";
+              heading.style.cssText = "margin: 36px 0 14px;";
+              heading.textContent = "Comparison between general and task-focused memory on multiple tasks";
+              rowsRoot.appendChild(heading);
+
+              const compNav = document.createElement("nav");
+              compNav.className = "svm-demo-nav";
+              compNav.id = "svmComparisonNav";
+              compNav.setAttribute("aria-label", "Comparison demos navigation");
+              compNav.innerHTML = comparisonDemos.map((d, i) => (
+                `<a href="#${d.id}">Video ${i + 1}</a>`
+              )).join("");
+              rowsRoot.appendChild(compNav);
+
+              compNav.addEventListener("click", (event) => {
+                const link = event.target.closest('a[href^="#"]');
+                if (!link) return;
+                const hash = link.getAttribute("href");
+                const target = document.querySelector(hash);
+                if (!target) return;
+                event.preventDefault();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                history.replaceState(null, "", hash);
+              });
+
+              comparisonHeadingInserted = true;
+            }
+            const number = isPhasedDemo(demo) ? null : (comparisonCounter += 1);
+            buildRow(demo, number);
+          });
           requestAnimationFrame(() => scrollToDemoHash());
           window.addEventListener("hashchange", () => scrollToDemoHash({ behavior: "smooth" }));
         })();
