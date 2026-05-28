@@ -3665,11 +3665,20 @@
             });
           }
 
+          // Production: route static videos through jsDelivr CDN for faster
+          // global delivery (especially China). Local dev: keep relative path.
+          const VIDEO_CDN_BASE = "https://cdn.jsdelivr.net/gh/Hope-Rita/TaskMem-demo@main/";
+          function isLocalHost() {
+            const h = (typeof location !== "undefined" && location.hostname) || "";
+            return !h || h === "localhost" || h === "127.0.0.1" || h === "0.0.0.0";
+          }
           function buildVideoSourceUrl(demo) {
             if (!demo?.source) return "";
             const version = demo.sourceVersion || demo.id || "1";
-            const joiner = demo.source.includes("?") ? "&" : "?";
-            return `${demo.source}${joiner}v=${encodeURIComponent(version)}`;
+            const isAbsolute = /^(https?:)?\/\//i.test(demo.source);
+            const base = (!isAbsolute && !isLocalHost()) ? VIDEO_CDN_BASE + demo.source : demo.source;
+            const joiner = base.includes("?") ? "&" : "?";
+            return `${base}${joiner}v=${encodeURIComponent(version)}`;
           }
 
           function tryAutoplayDemo(state, youtubePlayer) {
@@ -3704,10 +3713,9 @@
               entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                   startPlayback();
-                } else if (!state.isSeekDragging) {
-                  video.pause();
-                  stopSync(state);
                 }
+                // Intentionally do NOT pause when leaving viewport — keep
+                // playing so the memory stream continues to advance.
               });
             }, { threshold: 0.35 });
             state.autoplayObserver.observe(video);
