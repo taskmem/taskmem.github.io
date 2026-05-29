@@ -28,9 +28,9 @@
   <!-- TODO: Same as description above -->
   <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
+  <meta property="og:url" content="https://taskmem.github.io/">
   <!-- TODO: Create a 1200x630px preview image and update path -->
-  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta property="og:image" content="https://taskmem.github.io/static/images/introduction.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
@@ -51,7 +51,7 @@
   <!-- TODO: Same as description above -->
   <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Same as social preview image above -->
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
+  <meta name="twitter:image" content="https://taskmem.github.io/static/images/introduction.png">
   <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
 
   <!-- Academic/Research Specific -->
@@ -82,7 +82,18 @@
   <!-- Favicon and App Icons -->
   <link rel="icon" type="image/png" sizes="32x32" href="static/images/agent-favicon.png?v=3">
   <link rel="apple-touch-icon" href="static/images/agent-icon.png?v=3">
-  
+
+  <!-- Speed up jsDelivr (CDN for figures and videos) and font CDNs -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+  <!-- Preload above-the-fold introduction figure (served via jsDelivr) -->
+  <link rel="preload" as="image"
+        href="https://cdn.jsdelivr.net/gh/taskmem/taskmem.github.io@main/static/images/introduction.png"
+        fetchpriority="high">
+
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/index.css">
@@ -141,8 +152,8 @@
       "@type": "Organization",
       "name": "CONFERENCE_OR_JOURNAL_NAME"
     },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
+    "url": "https://taskmem.github.io/",
+    "image": "https://taskmem.github.io/static/images/introduction.png",
     "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
     "abstract": "FULL_ABSTRACT_TEXT_HERE",
     "citation": "BIBTEX_CITATION_HERE",
@@ -150,7 +161,7 @@
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "mainEntity": {
       "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
+      "@id": "https://taskmem.github.io/"
     },
     "about": [
       {
@@ -172,7 +183,7 @@
     "@type": "Organization",
     "name": "INSTITUTION_OR_LAB_NAME",
     "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-    "logo": "https://YOUR_DOMAIN.com/static/images/agent-icon.png",
+    "logo": "https://taskmem.github.io/static/images/agent-icon.png",
     "sameAs": [
       "https://twitter.com/YOUR_TWITTER_HANDLE",
       "https://github.com/YOUR_GITHUB_USERNAME"
@@ -296,9 +307,11 @@
   <div class="hero-body" style="padding-top: 0; padding-bottom: 0;">
     <div class="container is-max-widescreen">
       <img
-        src="static/images/introduction.png"
+        src="https://cdn.jsdelivr.net/gh/taskmem/taskmem.github.io@main/static/images/introduction.png"
         alt="Introduction figure"
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
         style="display: block; width: 100%; height: auto; border: 0; margin-top: 0;">
     </div>
   </div>
@@ -311,9 +324,10 @@
     <div class="container is-max-widescreen">
       <h2 class="title is-3 has-text-centered">Method Overview</h2>
       <img
-        src="static/images/train.png"
+        src="https://cdn.jsdelivr.net/gh/taskmem/taskmem.github.io@main/static/images/train.png"
         alt="Method overview figure"
         loading="lazy"
+        decoding="async"
         style="display: block; width: 100%; height: auto;">
       <div style="max-width: 1280px; margin: 12px auto 0;">
         <p style="font-size: 0.95rem; line-height: 1.75; margin: 0; color: #4a4a4a;">
@@ -3666,7 +3680,7 @@
 
           // Production: route static videos through jsDelivr CDN for faster
           // global delivery (especially China). Local dev: keep relative path.
-          const VIDEO_CDN_BASE = "https://cdn.jsdelivr.net/gh/Hope-Rita/TaskMem-demo@main/";
+          const VIDEO_CDN_BASE = "https://cdn.jsdelivr.net/gh/taskmem/taskmem.github.io@main/";
           function isLocalHost() {
             const h = (typeof location !== "undefined" && location.hostname) || "";
             return !h || h === "localhost" || h === "127.0.0.1" || h === "0.0.0.0";
@@ -4086,7 +4100,7 @@
   title={Task-Focused Memorization for Multimodal Agents},
   author={Zou, Tao and He, Yichen and Qiu, Tian and Lin, Yuan and Li, Hang},
   year={2026},
-  url={https://hope-rita.github.io/TaskMem-demo/}
+  url={https://taskmem.github.io/}
 }</code></pre>
     </div>
 </section>

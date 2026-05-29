@@ -22,3 +22,6 @@ npm-debug.log*
 # Build / temp
 *.log
 .cache/
+
+# Local-only originals of compressed images (kept for re-compression, not shipped)
+.image-originals-backup/
