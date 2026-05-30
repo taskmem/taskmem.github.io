@@ -883,6 +883,9 @@
         .svm-track-line.attribute { background: linear-gradient(90deg, #f14668, #ff6f91); }
         .svm-track-line.object { background: linear-gradient(90deg, #3273dc, #23d160); }
         .svm-track-line.spatial { background: linear-gradient(90deg, #7957d5, #48c78e); }
+        /* "action" track gets a warm amber→red gradient to evoke
+           emotional intensity, contrasting the cool object track. */
+        .svm-track-line.action { background: linear-gradient(90deg, #f59e0b, #ef4444); }
         .svm-panel-head {
           display: flex;
           justify-content: flex-start;
@@ -1190,6 +1193,12 @@
         }
         .svm-memory-grid.phased .svm-task-hint-box.phase-information .svm-task-hint-label { color: #1d4ed8; }
         .svm-memory-grid.phased .svm-task-hint-box.phase-information p { color: #1e3a8a; }
+        .svm-memory-grid.phased .svm-task-hint-box.phase-action {
+          background: #fffbeb;
+          box-shadow: inset 4px 0 0 #f59e0b;
+        }
+        .svm-memory-grid.phased .svm-task-hint-box.phase-action .svm-task-hint-label { color: #b45309; }
+        .svm-memory-grid.phased .svm-task-hint-box.phase-action p { color: #78350f; }
         .svm-memory-grid.phased .svm-task-hint-box.phase-object {
           background: #f5f3ff;
           box-shadow: inset 4px 0 0 #8b5cf6;
@@ -1377,6 +1386,7 @@
         }
         .svm-memory-item.phase-information .svm-track-badge { color: #2563eb; }
         .svm-memory-item.phase-object .svm-track-badge { color: #7c3aed; }
+        .svm-memory-item.phase-action .svm-track-badge { color: #b45309; }
         .svm-memory-item.phase-base .svm-track-badge { color: #64748b; }
         .svm-question-text {
           margin: 0;
@@ -1427,6 +1437,10 @@
           box-shadow: inset 4px 0 0 #7957d5;
           background: #faf8ff;
         }
+        .svm-memory-item.phase-action {
+          box-shadow: inset 4px 0 0 #f59e0b;
+          background: #fffbf2;
+        }
         .svm-memory-item .svm-memory-kind {
           display: inline-block;
           margin-bottom: 4px;
@@ -1439,6 +1453,7 @@
         .svm-memory-item.phase-base .svm-inline-highlight { background: #ffe4e8; color: #9f1239; border-color: rgba(190, 18, 60, 0.35); box-shadow: inset 0 -2px 0 rgba(244, 63, 94, 0.35); }
         .svm-memory-item.phase-information .svm-inline-highlight { background: #dbeafe; color: #1e40af; border-color: rgba(37, 99, 235, 0.35); box-shadow: inset 0 -2px 0 rgba(59, 130, 246, 0.4); }
         .svm-memory-item.phase-object .svm-inline-highlight { background: #ede9fe; color: #5b21b6; border-color: rgba(124, 58, 237, 0.35); box-shadow: inset 0 -2px 0 rgba(124, 58, 237, 0.4); }
+        .svm-memory-item.phase-action .svm-inline-highlight { background: #fef3c7; color: #92400e; border-color: rgba(217, 119, 6, 0.35); box-shadow: inset 0 -2px 0 rgba(245, 158, 11, 0.4); }
         @media (max-width: 1280px) {
           .svm-title { font-size: 28px; }
           .svm-memory-grid.phased .svm-panel-head h3 { font-size: 22px; }
@@ -1526,7 +1541,7 @@
                 // "<face_2>, dressed in a yellow shirt, black pants, and orange shoes, sprints toward the blue hoops, bending low to place a red cloth into an empty ring. Immediately after, a participant in a black outfit dashes in, positioning a green cloth into a neighboring hoop with swift accuracy. The onlookers in the background continue to observe intently, their attention unwavering as the tic-tac-toe grid fills with cloths, each player contributing to the strategic arrangement with focused determination.",
                 // "<face_4>, wearing a white \"Kempo\" shirt, black pants, and yellow shoes, sprints toward the blue hoops, bending low to place a red cloth into an empty ring. <face_1>, dressed in a black shirt and gray pants, follows closely, swiftly positioning a green cloth into a neighboring hoop. The onlookers in the background maintain their attentive stance, their eyes tracking the players' movements as the tic-tac-toe grid nears completion with each deliberate placement.",
                 // "<face_4>, in a blue shirt and red shoes, sprints toward the blue hoops, bending low to place a red cloth into an empty ring. The participant in black with gray pants follows swiftly, positioning a red cloth into an adjacent hoop with precise timing. Onlookers in the background remain fixated, their postures tense with anticipation as the tic-tac-toe grid nears full completion. The players' movements are synchronized, each action deliberate to secure their strategic placements, while the final few cloths left create a sense of urgency in the game's conclusion.",
-                // "<face_6>, dressed in a gray shirt and blue shoes, sprints toward the blue hoops, bending to place a green cloth into an empty ring. [face_7] in a black outfit and white shoes follows swiftly, positioning a red cloth into a neighboring hoop with precise timing. The onlookers in the background maintain their focused stance, eyes tracking the players' coordinated movements as the tic-tac-toe grid nears its final configuration."
+                // "<face_6>, dressed in a gray shirt and blue shoes, sprints toward the blue hoops, bending to place a green cloth into an empty ring. <face_3> in a black outfit and white shoes follows swiftly, positioning a red cloth into a neighboring hoop with precise timing. The onlookers in the background maintain their focused stance, eyes tracking the players' coordinated movements as the tic-tac-toe grid nears its final configuration."
               ],
               diffHighlights: [
                 ["tic-tac-toe pattern", "into an adjacent hoop", "observing the activity in the gymnasium"],
@@ -1537,7 +1552,7 @@
                 // ["grid fills with cloths", "with swift accuracy", "focused determination"],
                 // ["grid nears completion", "deliberate placement", "white \"Kempo\" shirt"],
                 // ["movements are synchronized", "sense of urgency", "nears full completion"],
-                // ["final configuration", "precise timing", "[face_7] in a black outfit and white shoes"]
+                // ["final configuration", "precise timing", "<face_3> in a black outfit and white shoes"]
               ]
             },
             {
@@ -2023,16 +2038,16 @@
             "<face_3> climbs out of a house window while holding the letter, then says: \"Boy howdy, I do love a loophole.\" The scene shifts to a bar where <face_5> asks: \"All right, who's hotter?\" and then \"Cindy Crawford or Jessica Rabbit?\" as <face_4> and <face_6> sit at the bar.",
             "<face_5> responds to <face_4> with, \"And you couldn't get either one of them.\" <face_5> insists, \"Now answer the question.\" <face_3> enters the bar, sits at the counter, and <face_4> asks, \"What the hell are you doing here?\" <face_3> replies, \"I need to talk to you.\"",
             "<face_4> responds with, \"What do you want, Sheldon?\" <face_3> holds up the envelope and says, \"I want to know why no one told me about this recruitment letter from Caltech.\"",
-            "<face_4> takes the envelope from [face_7] and says, \"Let me see that.\" [face_9] then exclaims, \"All right, let's get me drunk.\" [face_7] remains at the bar, holding the letter and explaining his need for information. Later, <face_4> and [face_7] enter the kitchen where <face_2> is chopping vegetables, and <face_2> pauses her task to look at them.",
-            "<face_2> pauses chopping vegetables in the kitchen, turning to face [face_7] and [face_11] as they enter. <face_2> asks, \"What are you doing with him?\" then adds, \"I thought you were in your room.\" [face_7] responds, \"Oh, don't worry.\" [face_11] steps forward, stating, \"I need to talk to your mother,\" then commands, \"Go back to your room. And this time stay there.\" <face_2> sighs, saying \"Aww.\"",
-            "[face_11] holds a note and asks <face_2>, \"You want to tell me about this?\" <face_2> looks at the note, then responds with a concerned tone, \"It came a couple of weeks ago and since there's no way he's going to California.\" [face_11] listens intently as <face_2> continues speaking, while <face_2> gestures slightly with her hands during the conversation.",
-            "[face_11] asks <face_2>, \"And what were you going to tell me?\" <face_2> replies, \"What difference does it make?\" while gesturing slightly with her hands. [face_11] then holds the letter and says, \"This says to the parents,\" as <face_2> listens with a concerned expression.",
-            "<face_2> speaks with a frustrated tone, saying, \"You are making a big deal out of nothing.\" [face_11] responds firmly, \"This could be a huge opportunity for him. I should at least be told about it.\" <face_2> then concedes, \"Okay. Now you know.\"",
-            "[face_11] asks <face_2>, \"You think you get to make these decisions all by yourself?\" <face_2> replies, \"In this case, yeah.\" [face_11] then asserts, \"Well, you don't. He's not just your son, he's my son too,\" with a firm tone as <face_2> listens, her posture reflecting a mix of frustration and resignation.",
-            "<face_2> places her hands on her hips, speaking with a mix of frustration and exasperation: \"didn't feel like your son when he had chickenpox or every morning when I have to make his lunch.\" [face_11] listens, then responds with a reflective tone: \"It felt like my son when I took him to Caltech where he clearly impressed a lot of people.\" <face_2> stands with a strained posture, while [face_11] gestures slightly with the letter in hand, emphasizing his point about shared parental responsibility.",
-            "<face_2> gestures with her arm while speaking, \"So, you just want to ship our baby boy off to California to live by himself?\" [face_11] responds firmly, \"I want to be included in decisions about his future.\" <face_2> stands with a tense posture, and [face_11] adds, \"If that means California, maybe I'll go with him,\" as <face_2> listens with a mix of frustration and contemplation.",
-            "<face_2> stands in the kitchen, hands on hips, stating firmly, \"He is not going anywhere.\" She then gestures with her arm while saying, \"You can go as far away as you want.\" As [face_11] walks toward the door and exits the kitchen, <face_2> continues chopping vegetables on the counter, her expression reflecting determination.",
-            "<face_2> continues chopping vegetables on the kitchen counter after [face_11] exits through the door. The scene transitions to an exterior shot of a house at night, with lights on inside. Inside, <face_2> sits at a round table with [face_12], a young girl in a floral-patterned top, as they eat dinner. <face_2> uses a spoon while [face_12] eats with a fork, both engaged in the meal.",
+            "<face_4> takes the envelope from <face_3> and says, \"Let me see that.\" <face_8> then exclaims, \"All right, let's get me drunk.\" <face_3> remains at the bar, holding the letter and explaining his need for information. Later, <face_4> and <face_3> enter the kitchen where <face_2> is chopping vegetables, and <face_2> pauses her task to look at them.",
+            "<face_2> pauses chopping vegetables in the kitchen, turning to face <face_3> and <face_4> as they enter. <face_2> asks, \"What are you doing with him?\" then adds, \"I thought you were in your room.\" <face_3> responds, \"Oh, don't worry.\" <face_4> steps forward, stating, \"I need to talk to your mother,\" then commands, \"Go back to your room. And this time stay there.\" <face_2> sighs, saying \"Aww.\"",
+            "<face_4> holds a note and asks <face_2>, \"You want to tell me about this?\" <face_2> looks at the note, then responds with a concerned tone, \"It came a couple of weeks ago and since there's no way he's going to California.\" <face_4> listens intently as <face_2> continues speaking, while <face_2> gestures slightly with her hands during the conversation.",
+            "<face_4> asks <face_2>, \"And what were you going to tell me?\" <face_2> replies, \"What difference does it make?\" while gesturing slightly with her hands. <face_4> then holds the letter and says, \"This says to the parents,\" as <face_2> listens with a concerned expression.",
+            "<face_2> speaks with a frustrated tone, saying, \"You are making a big deal out of nothing.\" <face_4> responds firmly, \"This could be a huge opportunity for him. I should at least be told about it.\" <face_2> then concedes, \"Okay. Now you know.\"",
+            "<face_4> asks <face_2>, \"You think you get to make these decisions all by yourself?\" <face_2> replies, \"In this case, yeah.\" <face_4> then asserts, \"Well, you don't. He's not just your son, he's my son too,\" with a firm tone as <face_2> listens, her posture reflecting a mix of frustration and resignation.",
+            "<face_2> places her hands on her hips, speaking with a mix of frustration and exasperation: \"didn't feel like your son when he had chickenpox or every morning when I have to make his lunch.\" <face_4> listens, then responds with a reflective tone: \"It felt like my son when I took him to Caltech where he clearly impressed a lot of people.\" <face_2> stands with a strained posture, while <face_4> gestures slightly with the letter in hand, emphasizing his point about shared parental responsibility.",
+            "<face_2> gestures with her arm while speaking, \"So, you just want to ship our baby boy off to California to live by himself?\" <face_4> responds firmly, \"I want to be included in decisions about his future.\" <face_2> stands with a tense posture, and <face_4> adds, \"If that means California, maybe I'll go with him,\" as <face_2> listens with a mix of frustration and contemplation.",
+            "<face_2> stands in the kitchen, hands on hips, stating firmly, \"He is not going anywhere.\" She then gestures with her arm while saying, \"You can go as far away as you want.\" As <face_4> walks toward the door and exits the kitchen, <face_2> continues chopping vegetables on the counter, her expression reflecting determination.",
+            "<face_2> continues chopping vegetables on the kitchen counter after <face_4> exits through the door. The scene transitions to an exterior shot of a house at night, with lights on inside. Inside, <face_2> sits at a round table with [face_12], a young girl in a floral-patterned top, as they eat dinner. <face_2> uses a spoon while [face_12] eats with a fork, both engaged in the meal.",
             "<face_1> speaks with a slightly confused tone: \"This is weird.\" [face_13] responds gently: \"I think it's nice. We don't usually get to chat just us.\" <face_1> replies, \"I guess,\" while continuing to eat with a fork.",
             "[face_12] asks <face_1>, \"How are things in school?\" <face_1> replies, \"Fine,\" while continuing to eat with a fork. [face_12] then inquires, \"Still having fun at baseball?\" as <face_1> keeps eating with a fork.",
             "[face_12] asks <face_1>, \"So, any boys you like?\" as <face_1> continues eating with a fork and replies, \"Mhm.\" Moments later, [face_14] enters the kitchen, greeting with \"Hey.\" [face_12] then inquires, \"Where have you been?\" to which [face_14] responds, \"Out to find a job.\"",
@@ -2049,18 +2064,18 @@
             "<face_3> leans forward in the wicker chair, voice tinged with frustration as he asks, \"How could you not tell me that Caltech wants me to go to school there?\" <face_2> stands in the kitchen, hands on her hips, responding coldly, \"Because you're not going, so it doesn't matter.\" <face_3> narrows his eyes, pressing further: \"So I don't get a say in this?\" <face_2> meets his gaze, her expression unyielding: \"Actually, no.\" The tension crackles in the air as <face_2> shifts slightly, the kitchen's yellow walls and vintage clock looming behind her, emphasizing the starkness of their confrontation. <face_3> slumps back, the letter still clutched in his hand, while <face_2> turns toward the counter, her posture rigid with unresolved tension.",
             "<face_2> leans forward in the kitchen, her expression firm as she states, \"addressed to the parents of Sheldon Cooper.\" <face_3> stands nearby, letter clutched in his hand, his voice tinged with frustration: \"So Dad was okay hiding this from me?\" <face_2> straightens, tone final: \"We are done having this discussion. Go to your room.\" She turns toward the counter, hands tense, while <face_3> slumps slightly, retreating from the confrontation. The kitchen's yellow walls and vintage clock linger in the background, emphasizing the unresolved tension as <face_3> abandons the letter on the table and walks away.",
             "<face_1> stands in the living room holding a camera, asking <face_2>—who is near the kitchen counter with a brown paper bag—\"Hey, what time does Fotomat close?\" <face_2> turns from the counter, her expression still tight with unresolved tension. The scene shifts to a close-up of a letter addressed to \"the parents of Sheldon Cooper\" from the California Institute of Technology, held by <face_3>. <face_3> sits at a desk with an old computer, reading the letter aloud: \"I was angry at my mother and needed more information. While she told me to go to my room, she didn't say...\" His voice carries frustration, fingers gripping the letter as he speaks. The kitchen's yellow walls and vintage decor linger in the background, the weight of the earlier confrontation still palpable as <face_3> seeks clarity.",
-            "The scene transitions to an exterior view of a house, where <face_6> climbs through a window while holding the letter, exclaiming, \"Boy howdy, I do love a loophole\" as sunlight filters through the surrounding greenery. The shingled wall and foliage frame the action. The video then cuts to a dimly lit bar, where two men in red shirts sit at a table. One man, labeled <face_4>, asks, \"All right, who's hotter? Cindy Crawford or Jessica Rabbit?\" while the other, <face_4>, listens, a glass of beer in hand. The bar buzzes with activity—patrons converse, pool tables glow under overhead lights, and neon signs cast a warm hue, contrasting the earlier domestic tension.",
-            "In the dimly lit bar, <face_4> responds to <face_4>'s question with a smirk, saying, \"One's a person, one's a cartoon. And you couldn't get either of them.\" <face_4> leans forward, pressing, \"Now answer the question.\" Suddenly, <face_4>—the boy in the plaid shirt—approaches the table, his expression urgent. \"What the hell are you doing here?\" he demands, then adds, \"I need to talk to you.\" The bar's ambient noise—clinking glasses, distant chatter—heightens the tension as <face_4> and <face_4> exchange glances, their beer mugs still in hand, while <face_4> stands firm, the neon lights casting sharp shadows on his face.",
-            "<face_4> leans back in the bar stool, beer mug still in hand, his expression shifting from amusement to mild irritation as he responds, \"couldn't find me.\" <face_4> steps closer, voice steady but urgent, \"It's not like you come home smelling like coffee.\" The bar's ambient glow casts shadows on their faces, the clinking of glasses and distant chatter underscoring the tension. <face_4> sets his mug down, leaning forward with a sigh, \"What do you want, Sheldon?\" <face_3> holds up the Caltech recruitment letter, fingers tightening around the envelope as he says, \"I want to know why no one told me about this.\" The neon signs above the bar flicker, highlighting the gravity of the moment as <face_4> studies the letter, his earlier casual demeanor replaced by careful consideration.",
-            "<face_1> chops tomatoes on a wooden kitchen counter, her white dress stained with cooking residue as sunlight filters through the window, highlighting the vintage decor. <face_4> and <face_3> enter the room—their red and plaid shirts contrasting with the kitchen's yellow walls. <face_1> looks up, her expression shifting from concentration to concern as <face_3> holds up the Caltech letter, saying, \"I need to know why no one told me about this.\" <face_4> nods, his earlier bar demeanor replaced by seriousness, while the clinking of the knife against the cutting board underscores the tension in the otherwise warm, homey space.",
-            "<face_4> gestures emphatically at the bar, declaring, \"All right, let's get me drunk\" as <face_10> in a green shirt and tie approaches the table, greeting, \"Hi, Mr. Givens.\" <face_2> responds with a laugh, \"Oh, come on!\" The scene shifts to the kitchen where <face_1> stands by the counter, tomatoes and a grater nearby, her white dress略显凌乱 from cooking. She turns to <face_3> in the plaid shirt, asking, \"What are you doing with him? I thought you were in your room.\" <face_3> replies, \"Oh, don't worry,\" while <face_4> in a maroon shirt and khakis stands with hands on hips, commanding, \"Go back to your room. And this time stay there.\" The warm kitchen light casts soft shadows as the tension between the characters thickens, the clinking of the knife against the cutting board echoing the unresolved conflict.",
+            "The scene transitions to an exterior view of a house, where <face_3> climbs through a window while holding the letter, exclaiming, \"Boy howdy, I do love a loophole\" as sunlight filters through the surrounding greenery. The shingled wall and foliage frame the action. The video then cuts to a dimly lit bar, where two men in red shirts sit at a table. <face_5> asks, \"All right, who's hotter? Cindy Crawford or Jessica Rabbit?\" while <face_4> listens, a glass of beer in hand. The bar buzzes with activity—patrons converse, pool tables glow under overhead lights, and neon signs cast a warm hue, contrasting the earlier domestic tension.",
+            "In the dimly lit bar, <face_5> responds to <face_4> with a smirk, saying, \"One's a person, one's a cartoon. And you couldn't get either of them.\" <face_5> leans forward, pressing, \"Now answer the question.\" Suddenly, <face_3>—the boy in the plaid shirt—approaches the table, his expression urgent, while <face_4> demands, \"What the hell are you doing here?\" <face_3> replies, \"I need to talk to you.\" The bar's ambient noise—clinking glasses, distant chatter—heightens the tension as <face_4> and <face_5> exchange glances, their beer mugs still in hand, while <face_3> stands firm, the neon lights casting sharp shadows on his face.",
+            "<face_4> leans back in the bar stool, beer mug still in hand, his expression shifting from amusement to mild irritation as he responds, \"couldn't find me.\" <face_3> steps closer, voice steady but urgent, \"It's not like you come home smelling like coffee.\" The bar's ambient glow casts shadows on their faces, the clinking of glasses and distant chatter underscoring the tension. <face_4> sets his mug down, leaning forward with a sigh, \"What do you want, Sheldon?\" <face_3> holds up the Caltech recruitment letter, fingers tightening around the envelope as he says, \"I want to know why no one told me about this.\" The neon signs above the bar flicker, highlighting the gravity of the moment as <face_4> studies the letter, his earlier casual demeanor replaced by careful consideration.",
+            "<face_2> chops tomatoes on a wooden kitchen counter, her white dress stained with cooking residue as sunlight filters through the window, highlighting the vintage decor. <face_4> and <face_3> enter the room—their red and plaid shirts contrasting with the kitchen's yellow walls. <face_2> looks up, her expression shifting from concentration to concern as <face_3> holds up the Caltech letter, saying, \"I need to know why no one told me about this.\" <face_4> nods, his earlier bar demeanor replaced by seriousness, while the clinking of the knife against the cutting board underscores the tension in the otherwise warm, homey space.",
+            "In the kitchen, <face_2> stands by the counter, tomatoes and a grater nearby, her white dress slightly disheveled from cooking. She turns to <face_3> in the plaid shirt, asking, \"What are you doing with him? I thought you were in your room.\" <face_3> replies, \"Oh, don't worry,\" while <face_4> in a maroon shirt and khakis steps forward with hands on hips, commanding, \"Go back to your room. And this time stay there.\" The warm kitchen light casts soft shadows as the tension between the characters thickens, the clinking of the knife against the cutting board echoing the unresolved conflict.",
             "<face_4> holds the paper up, his expression serious as he asks <face_2>, \"You want to tell me about this?\" <face_2> hesitates, then replies, \"It came a couple of weeks ago and since there's no way he's going to California.\" Her voice carries a mix of resignation and frustration as she gestures toward the paper. The kitchen's warm light casts gentle shadows on their faces, the clinking of the knife from earlier now silent as the weight of the conversation settles. <face_4> nods slowly, his brow furrowed, while <face_2> turns slightly away, her hands still near the cutting board but no longer chopping. The tension in the room shifts from the boy's earlier defiance to a more somber understanding between the two adults.",
-            "<face_4> stands with the recruitment letter in hand, his posture rigid as he demands, \"And what were you going to tell me?\" <face_1> turns slightly, her hands still near the cutting board but now trembling faintly as she replies, \"What difference does it make?\" The kitchen's warm light casts long shadows on the walls adorned with decorative plates, highlighting the tension in their exchange. <face_4> steps closer, voice firm, \"This says to the parents\" while unfolding the letter to emphasize his point. <face_2> avoids his gaze, her expression a mix of guilt and exhaustion, the earlier urgency replaced by a weary resignation. The clinking of utensils from the counter fades as the weight of the conversation hangs in the air, the once-cozy kitchen now feeling charged with unspoken fears about the boy's future.",
-            "<face_4> stands rigidly in the kitchen, the recruitment letter clutched in his hand as he insists, \"check that was me too,\" his voice edged with frustration. <face_1> turns to face him, her hands still near the cutting board but now trembling slightly as she counters, \"You are making a big deal out of nothing,\" her tone laced with exhaustion. <face_4> steps closer, eyes narrowing, \"This could be a huge opportunity for him. I should at least be told about it,\" his posture tense with urgency. <face_1> exhales sharply, her gaze dropping to the counter before meeting his again, replying, \"Okay. Now you know.\" The kitchen's warm light casts long shadows on the decorative plates behind them, the air thick with unresolved tension as the weight of the boy's future hangs between them.",
+            "<face_4> stands with the recruitment letter in hand, his posture rigid as he demands, \"And what were you going to tell me?\" <face_2> turns slightly, her hands still near the cutting board but now trembling faintly as she replies, \"What difference does it make?\" The kitchen's warm light casts long shadows on the walls adorned with decorative plates, highlighting the tension in their exchange. <face_4> steps closer, voice firm, \"This says to the parents\" while unfolding the letter to emphasize his point. <face_2> avoids his gaze, her expression a mix of guilt and exhaustion, the earlier urgency replaced by a weary resignation. The clinking of utensils from the counter fades as the weight of the conversation hangs in the air, the once-cozy kitchen now feeling charged with unspoken fears about the boy's future.",
+            "<face_4> stands rigidly in the kitchen, the recruitment letter clutched in his hand as he insists, \"check that was me too,\" his voice edged with frustration. <face_2> turns to face him, her hands still near the cutting board but now trembling slightly as she counters, \"You are making a big deal out of nothing,\" her tone laced with exhaustion. <face_4> steps closer, eyes narrowing, \"This could be a huge opportunity for him. I should at least be told about it,\" his posture tense with urgency. <face_2> exhales sharply, her gaze dropping to the counter before meeting his again, replying, \"Okay. Now you know.\" The kitchen's warm light casts long shadows on the decorative plates behind them, the air thick with unresolved tension as the weight of the boy's future hangs between them.",
             "<face_4> leans in, voice tight with frustration, \"You think you get to make these decisions all by yourself?\" <face_2> meets his gaze, her expression taut but resolute as she replies, \"In this case, yeah.\" <face_4> steps back slightly, jaw clenched, \"Well, you don't. He's not just your son, he's my son too.\" The kitchen's warm light casts sharp shadows on the decorative plates behind them, the air thick with the weight of unresolved parental conflict as <face_2>'s hands tighten around the edge of the counter, her exhaustion palpable.",
-            "<face_2> stands with hands on her hips, her expression tense as she retorts, \"didn't feel like your son when he had chickenpox or every morning when I have to make his lunch.\" Her voice carries a mix of exasperation and vulnerability, fingers tightening around the edge of the counter. <face_2> listens intently, then responds with a measured tone, \"It felt like my son when I took him to Caltech where he clearly impressed a lot of people,\" his posture shifting slightly as he emphasizes his point. The kitchen's warm light casts long shadows on the decorative plates behind them, the air still thick with unresolved tension as their voices rise in a clash of parental perspectives, each clinging to their own version of what it means to be a parent.",
+            "<face_2> stands with hands on her hips, her expression tense as she retorts, \"didn't feel like your son when he had chickenpox or every morning when I have to make his lunch.\" Her voice carries a mix of exasperation and vulnerability, fingers tightening around the edge of the counter. <face_4> listens intently, then responds with a measured tone, \"It felt like my son when I took him to Caltech where he clearly impressed a lot of people,\" his posture shifting slightly as he emphasizes his point. The kitchen's warm light casts long shadows on the decorative plates behind them, the air still thick with unresolved tension as their voices rise in a clash of parental perspectives, each clinging to their own version of what it means to be a parent.",
             "<face_2> extends her arm emphatically, her voice rising with frustration as she asks, \"So, you just want to ship our baby boy off to California to live by himself?\" Her hands, previously clenched at her sides, now gesture sharply toward <face_4>, who stands rooted in place, the recruitment letter still in his grasp. <face_4> meets her gaze, his expression shifting from defensiveness to a measured resolve as he replies, \"I want to be included in decisions about his future. If that means California, maybe I'll go with him.\" The kitchen's warm light casts tense shadows on the decorative plates behind them, the air thick with the unresolved clash of parental authority and emotional vulnerability. <face_2>'s posture remains rigid, her brow furrowed in disbelief, while <face_4> leans slightly forward, his tone underscoring a desperate need for partnership in this pivotal moment.",
-            "<face_2> stands with hands on her hips, voice firm yet strained as she declares, \"He is not going anywhere. You can go as far away as you want,\" her fingers twitching against the counter before she raises a sharp, dismissive gesture. <face_2> turns away, posture rigid, and strides toward the door. He pauses at the threshold, glances back, then steps outside, the screen door clicking shut. <face_1> remains in the kitchen, gaze fixed on the empty doorway, then lowers her eyes to the vegetables on the counter, hands still trembling as she resumes chopping. Warm light casts long shadows, tension simmering as the weight of their dispute settles over the room.",
+            "<face_2> stands with hands on her hips, voice firm yet strained as she declares, \"He is not going anywhere. You can go as far away as you want,\" her fingers twitching against the counter before she raises a sharp, dismissive gesture. <face_2> turns away, posture rigid, and strides toward the door. He pauses at the threshold, glances back, then steps outside, the screen door clicking shut. <face_2> remains in the kitchen, gaze fixed on the empty doorway, then lowers her eyes to the vegetables on the counter, hands still trembling as she resumes chopping. Warm light casts long shadows, tension simmering as the weight of their dispute settles over the room.",
             "The scene shifts to a nighttime exterior of a modest house, its windows glowing warmly against the dark trees. Inside, <face_1> sits at a round dining table in a room with floral wallpaper, wearing a pink floral shirt and eating with a fork. Across from <face_1>, <face_4>—the woman in the white dress—also eats, her expression thoughtful as she glances down at her plate. Plates of food and tall glasses sit on the table, the quiet clink of cutlery the only sound in the softly lit room. <face_4> occasionally looks at <face_1>, her movements slow and deliberate, while <face_1> focuses on eating, the warm light casting gentle shadows that emphasize the intimate, subdued mood of the dinner setting.",
             "<face_4> pauses with her fork mid-air, her brow furrowing as she whispers, \"This is weird,\" her voice tinged with unease. Across the table, <face_2> sets down her utensil, her expression softening into a tentative smile as she replies, \"I think it's nice. We don't usually get to chat just us.\" The warm glow of the hanging lamp casts gentle shadows on the floral wallpaper, emphasizing the quiet intimacy of the moment. <face_4> nods slowly, her grip on the fork loosening as she murmurs, \"I guess,\" before returning to her meal. The clink of cutlery resumes, the room filled with a calm tension as the two share an unaccustomed silence, each lost in their own thoughts beneath the soft light.",
             "<face_3> leans slightly forward, her tone gentle as she asks, \"How are things in school?\" <face_4> pauses, then replies simply, \"Fine,\" her gaze dropping to her plate. <face_3> nods, her expression thoughtful, before adding, \"Still having fun at baseball?\" The soft light from the hanging lamp casts subtle shadows on the floral wallpaper, highlighting the quiet tension beneath their casual exchange. <face_4> twirls her fork absentmindedly, her response muffled as she mutters, \"Yeah,\" before returning to her meal. The clink of cutlery resumes, the room filled with a subdued rhythm of conversation and contemplation.",
@@ -2077,17 +2092,17 @@
             "<face_3>, in a checkered shirt, stands near a kitchen area with yellow walls and a door with blinds, holding an envelope and asking, \"How could you not tell me that Caltech wants me to go to school there?\" <face_2>, wearing a light blue dress, responds firmly, \"Because you're not going, so it doesn't matter,\" while gesturing with her hands. <face_3> presses further, \"So I don't get a say in this?\" to which <face_2> replies, \"Actually, no,\" maintaining a resolute expression as she shifts the brown paper bag in her arms. The kitchen backdrop includes a wall-mounted clock, a telephone, and various countertop items, emphasizing the domestic setting of their tense exchange.",
             "<face_3> asks, \"So Dad was okay hiding this from me?\" while holding the envelope in the kitchen area. <face_2> responds firmly, \"We are done having this discussion. Go to your room,\" gesturing with her hand as she shifts the brown paper bag. <face_3> then turns and walks away from the kitchen, leaving <face_2> standing near the door with blinds, the domestic setting of yellow walls and countertop items remaining unchanged.",
             "<face_1>, in the light pink floral dress with braided hair, stands in a room with a couch and bookshelves, holding a camera and asking, \"Hey, what time does Fotomat close?\" <face_2>, wearing a light blue dress and holding a brown paper bag, leans on a kitchen counter with various items like a telephone and clock in the background, responding to <face_1>. A close-up shows an envelope from the California Institute of Technology addressed to Sheldon Cooper's parents. <face_3>, in a checkered shirt, sits at a computer, reading the letter and stating, \"I was angry at my mother and needed more information,\" while explaining, \"While she told me to go to my room, she didn't say...\" The scene captures the tension between the characters as <face_3> seeks answers about the letter's contents.",
-            "<face_6> climbs out of a house window, gripping the envelope as he says, \"Boy howdy, I do love a loophole,\" with greenery visible outside. The scene shifts to a dimly lit bar where <face_4> and <face_4> sit at a wooden table, both in maroon shirts. <face_4> raises a beer mug and asks, \"All right, who's hotter? Cindy Crawford or Jessica Rabbit?\" while <face_4> holds his drink, the bar's neon signs and pool table visible in the background.",
-            "<face_4> in the maroon shirt continues the conversation, stating, \"One's a person, one's a cartoon,\" while <face_4> holds his beer mug, responding, \"And you couldn't get either one of them.\" <face_4> urges, \"Now answer the question,\" as the bar's neon lights and pool table remain visible in the background. Suddenly, <face_4>—the boy in the checkered shirt—approaches the table, asking, \"What the hell are you doing here?\" with a tense expression. He then says, \"I need to talk to you,\" leaning forward as he addresses <face_4>, who turns to him with a mix of curiosity and mild irritation.",
-            "<face_4> in the maroon shirt sets down his beer mug, responding with \"couldn't find me\" while seated at the bar table. <face_3>, the boy in the checkered shirt, stands nearby, saying, \"It's not like you come home smelling like coffee,\" his tone tense. <face_4> then asks, \"What do you want, Sheldon?\" as he gestures with his hand. <face_4> holds up the California Institute of Technology envelope, explaining, \"I want to know why no one told me about this recruitment letter from Caltech,\" his expression firm. The bar's neon lights and bustling background with other patrons emphasize the urgency of <face_3>'s inquiry about the letter.",
+            "<face_3> climbs out of a house window, gripping the envelope as he says, \"Boy howdy, I do love a loophole,\" with greenery visible outside. The scene shifts to a dimly lit bar where <face_4> and <face_5> sit at a wooden table, both in maroon shirts. <face_5> raises a beer mug and asks, \"All right, who's hotter? Cindy Crawford or Jessica Rabbit?\" while <face_4> holds his drink, the bar's neon signs and pool table visible in the background.",
+            "<face_5> in the maroon shirt continues the conversation, stating, \"One's a person, one's a cartoon,\" while <face_4> holds his beer mug, responding, \"And you couldn't get either one of them.\" <face_5> urges, \"Now answer the question,\" as the bar's neon lights and pool table remain visible in the background. Suddenly, <face_3>—the boy in the checkered shirt—approaches the table, his expression tense. <face_4> turns to him with a mix of curiosity and irritation, demanding, \"What the hell are you doing here?\" <face_3> leans forward and replies, \"I need to talk to you,\" addressing <face_4>.",
+            "<face_4> in the maroon shirt sets down his beer mug, responding with \"couldn't find me\" while seated at the bar table. <face_3>, the boy in the checkered shirt, stands nearby, saying, \"It's not like you come home smelling like coffee,\" his tone tense. <face_4> then asks, \"What do you want, Sheldon?\" as he gestures with his hand. <face_3> holds up the California Institute of Technology envelope, explaining, \"I want to know why no one told me about this recruitment letter from Caltech,\" his expression firm. The bar's neon lights and bustling background with other patrons emphasize the urgency of <face_3>'s inquiry about the letter.",
             "<face_4> takes the envelope from <face_3>, saying \"Let me see that\" while examining the Caltech recruitment letter. The bar atmosphere remains lively with neon lights and patrons in the background. <face_8>, seated at the bar, declares, \"All right, let's get me drunk\" while gesturing with his beer mug. The scene then transitions to a kitchen where <face_2>, in a light blue dress, is chopping tomatoes on a counter. <face_4> and <face_3> enter the kitchen, with <face_4> still holding the envelope as they approach <face_2>, who pauses her task to acknowledge their arrival.",
-            "<face_2> stands in the kitchen, wearing a light blue dress and holding a knife, her expression concerned as she faces <face_3> and <face_4>. She asks, \"What are you doing with him? I thought you were in your room.\" <face_3>, in a checkered shirt, replies, \"Oh, don't worry.\" <face_4>, the man in the maroon shirt, steps forward and says, \"I need to talk to your mother,\" before instructing <face_3> to \"Go back to your room.\" <face_2> adds, \"And this time stay there,\" her tone firm as she gestures toward the door. The kitchen features floral wallpaper, a stove with pots, and a laundry basket in the background, emphasizing the domestic setting of the confrontation.",
-            "<face_4> holds the paper and asks <face_1>, \"You want to tell me about this?\" <face_1> responds, \"It came a couple of weeks ago and since there's no way he's going to California,\" her voice carrying exhaustion as she stands in the kitchen with floral wallpaper and a stove visible behind her. <face_4> listens closely, the weight of the conversation hanging in the air as the domestic tension from earlier lingers.",
-            "<face_1> continues, her voice tinged with frustration, \"and since there's no way he's going to California, I didn't see the point in him knowing about it.\" <face_4> leans in, his expression tense, asking, \"And what were you going to tell me?\" <face_2> turns slightly, her hands still near the counter, replying, \"What difference does it make?\" as she gestures subtly with her free hand. The kitchen's warm lighting highlights the floral wallpaper and stove in the background, emphasizing the strained dynamic between them. <face_4> remains standing close, the Caltech envelope still in his hand, while <face_2>'s posture conveys exhaustion from the ongoing disagreement.",
-            "<face_4> holds the envelope and says, \"This says to the parents check that was me too,\" his voice firm as he gestures with the paper. <face_1> responds with frustration, \"You are making a big deal out of nothing,\" her hands resting near the counter as she shifts her posture. <face_4> continues, \"This could be a huge opportunity for him. I should at least be told about it,\" his expression tense with concern. <face_1> sighs, replying, \"Okay. Now you know,\" her body language conveying resignation as she turns slightly away, the kitchen's floral wallpaper and stove visible behind them.",
+            "<face_2> stands in the kitchen, wearing a light blue dress and holding a knife, her expression concerned as she faces <face_3> and <face_4>. She asks, \"What are you doing with him? I thought you were in your room.\" <face_3>, in a checkered shirt, replies, \"Oh, don't worry.\" <face_4>, the man in the maroon shirt, steps forward and says, \"I need to talk to your mother,\" then firmly instructs <face_3>, \"Go back to your room. And this time stay there.\" The kitchen features floral wallpaper, a stove with pots, and a laundry basket in the background, emphasizing the domestic setting of the confrontation.",
+            "<face_4> holds the paper and asks <face_2>, \"You want to tell me about this?\" <face_2> responds, \"It came a couple of weeks ago and since there's no way he's going to California,\" her voice carrying exhaustion as she stands in the kitchen with floral wallpaper and a stove visible behind her. <face_4> listens closely, the weight of the conversation hanging in the air as the domestic tension from earlier lingers.",
+            "<face_2> continues, her voice tinged with frustration, \"and since there's no way he's going to California, I didn't see the point in him knowing about it.\" <face_4> leans in, his expression tense, asking, \"And what were you going to tell me?\" <face_2> turns slightly, her hands still near the counter, replying, \"What difference does it make?\" as she gestures subtly with her free hand. The kitchen's warm lighting highlights the floral wallpaper and stove in the background, emphasizing the strained dynamic between them. <face_4> remains standing close, the Caltech envelope still in his hand, while <face_2>'s posture conveys exhaustion from the ongoing disagreement.",
+            "<face_4> holds the envelope and says, \"This says to the parents check that was me too,\" his voice firm as he gestures with the paper. <face_2> responds with frustration, \"You are making a big deal out of nothing,\" her hands resting near the counter as she shifts her posture. <face_4> continues, \"This could be a huge opportunity for him. I should at least be told about it,\" his expression tense with concern. <face_2> sighs, replying, \"Okay. Now you know,\" her body language conveying resignation as she turns slightly away, the kitchen's floral wallpaper and stove visible behind them.",
             "<face_4> stands in the kitchen, wearing a maroon polo shirt with a \"Westfield Football\" logo, his expression tense as he confronts <face_2>. He asks, \"You think you get to make these decisions all by yourself?\" <face_2> responds firmly, \"In this case, yeah,\" her hands resting on her hips near the stove. <face_4> steps closer, his voice firm, \"Well, you don't. He's not just your son, he's my son too.\" The kitchen's floral wallpaper and warm lighting highlight the intensity of their exchange, with decorative plates and the stove in the background emphasizing the domestic tension.",
-            "<face_2> stands in the kitchen with her hands on her hips, wearing a light-colored button-up shirt with a belted waist. Her expression conveys frustration as she says, \"didn't feel like your son when he had chickenpox or every morning when I have to make his lunch.\" <face_2>, in a maroon \"Westfield Football\" polo shirt, responds firmly, \"It felt like my son when I took him to Caltech where he clearly impressed a lot of people,\" gesturing with the envelope in his hand. The kitchen's floral wallpaper and stove remain visible in the background, underscoring the emotional tension between them as they debate their son's future.",
-            "<face_1> gestures sharply with her arm, her expression tense as she retorts, \"So, you just want to ship our baby boy off to California to live by himself?\" Her light-colored button-up shirt and belted waist emphasize her rigid posture. <face_2> stands firm in his maroon \"Westfield Football\" polo, responding calmly but firmly, \"I want to be included in decisions about his future. If that means California, maybe I'll go with him.\" He holds the envelope loosely in one hand, his gaze steady as he underscores his commitment to shared parenting. The kitchen's floral wallpaper and stove remain a constant backdrop, amplifying the emotional weight of their clash over their son's future.",
+            "<face_2> stands in the kitchen with her hands on her hips, wearing a light-colored button-up shirt with a belted waist. Her expression conveys frustration as she says, \"didn't feel like your son when he had chickenpox or every morning when I have to make his lunch.\" <face_4>, in a maroon \"Westfield Football\" polo shirt, responds firmly, \"It felt like my son when I took him to Caltech where he clearly impressed a lot of people,\" gesturing with the envelope in his hand. The kitchen's floral wallpaper and stove remain visible in the background, underscoring the emotional tension between them as they debate their son's future.",
+            "<face_2> gestures sharply with her arm, her expression tense as she retorts, \"So, you just want to ship our baby boy off to California to live by himself?\" Her light-colored button-up shirt and belted waist emphasize her rigid posture. <face_4> stands firm in his maroon \"Westfield Football\" polo, responding calmly but firmly, \"I want to be included in decisions about his future. If that means California, maybe I'll go with him.\" He holds the envelope loosely in one hand, his gaze steady as he underscores his commitment to shared parenting. The kitchen's floral wallpaper and stove remain a constant backdrop, amplifying the emotional weight of their clash over their son's future.",
             "<face_2> stands in the kitchen, her expression firm as she declares, \"He is not going anywhere. You can go as far away as you want,\" her hand gesturing emphatically toward <face_2>. She remains by the counter, continuing to chop vegetables with a focused intensity, her light-colored button-up shirt and belted waist emphasizing her rigid posture. <face_2>, still in his maroon \"Westfield Football\" polo, turns and walks toward the door, opening it and stepping outside before the door closes behind him. The kitchen's warm lighting and floral wallpaper frame the tense aftermath of their argument, with <face_1>'s focused movements and the scattered vegetables on the counter underscoring the emotional stakes of their disagreement.",
             "After <face_3> exits through the door, <face_2> remains at the kitchen counter, continuing to chop vegetables with deliberate motions. The warm kitchen lighting highlights the scattered produce—tomatoes, cucumbers, and a grater—on the wooden surface. The scene transitions to an exterior night shot of a single-story house, its windows and porch illuminated, surrounded by trees. Inside, <face_2> sits at a round dining table with a child in a pink floral shirt; the child eats from a plate while <face_2> also dines, the room lit by a hanging lamp. A final shot shows <face_2> in the kitchen, holding a spoon and appearing pensive as she prepares food, her light-colored button-up shirt and belted waist emphasizing her focused demeanor.",
             "<face_4> sits at the round dining table, wearing a pink floral shirt with braided hair, eating from a plate with a fork. The child remarks, \"This is weird,\" as they glance at <face_2>. <face_2>, in her light-colored button-up shirt, responds, \"I think it's nice. We don't usually get to chat just us,\" while also eating. The dining room's floral wallpaper and hanging lamp create a warm, intimate setting, contrasting with the earlier kitchen tension. The child continues to eat, occasionally looking at <face_2> as they share this unexpected moment of conversation.",
@@ -2156,15 +2171,27 @@
             ["blue-green gradient background", "static promotional screens"]
           ];
 
-          const video5Tracks = [
-            {
-              id: "base",
-              title: "General Memory",
-              shortTitle: "General",
-              lineClass: "attribute",
-              panelDesc: "Standard episodic encoding without a task-specific adapter.",
-              clips: sheldonBaseClips.slice(sheldonRange[0], sheldonRange[1])
-            },
+          // Shared "general memory" track definition — identical content
+          // re-used by both Object and Action lanes so that a viewer can
+          // see the same starting point branching into two different
+          // task-focused outcomes.
+          const sheldonBaseTrack = {
+            id: "base",
+            title: "General Memory",
+            shortTitle: "General",
+            lineClass: "attribute",
+            panelDesc: "Standard episodic encoding without a task-specific adapter.",
+            clips: sheldonBaseClips.slice(sheldonRange[0], sheldonRange[1])
+          };
+
+          // ---------------------------------------------------------
+          // Lane 1 — Task: Object Reasoning
+          //   0–28s : General memory
+          //   at 28 : object-reasoning task arrives (trigger)
+          //   28–120s : Object-focused memory
+          // ---------------------------------------------------------
+          const video5ObjTracks = [
+            sheldonBaseTrack,
             {
               id: "object",
               title: "Object Reasoning",
@@ -2173,25 +2200,15 @@
               taskHint: "Track the letter, costumes, props, and room layouts — the physical clues that hint at what the recruitment letter might contain.",
               clips: sheldonObjectClips.slice(sheldonRange[0], sheldonRange[1]),
               diffHighlights: sheldonObjectHighlights.slice(sheldonRange[0], sheldonRange[1])
-            },
-            {
-              id: "action",
-              title: "Action Reasoning",
-              shortTitle: "Action",
-              lineClass: "object",
-              taskHint: "Read the emotional dynamics, intent, and interpersonal tension that explain why the mother chose to hide the letter.",
-              clips: sheldonActionClips.slice(sheldonRange[0], sheldonRange[1]),
-              diffHighlights: sheldonActionHighlights.slice(sheldonRange[0], sheldonRange[1])
             }
           ];
 
-          const video5Phases = [
+          const video5ObjPhases = [
             { trackId: "base" },
-            { at: 30, trackId: "object" },
-            { at: 60, trackId: "action" }
+            { at: 28, trackId: "object" }
           ];
 
-          const video5Questions = [
+          const video5ObjQuestions = [
             {
               at: 8,
               text: "How is Sheldon reading the letter at the computer desk, and what kitchen furniture/objects are visible behind him?",
@@ -2210,7 +2227,34 @@
               direction: "Object Reasoning",
               trigger: true,
               switchTo: "Object Reasoning"
-            },
+            }
+          ];
+
+          // ---------------------------------------------------------
+          // Lane 2 — Task: Action Reasoning
+          //   0–58s : General memory (stays general much longer than Lane 1)
+          //   at 58 : action-reasoning task arrives (trigger)
+          //   58–120s : Action-focused memory
+          // ---------------------------------------------------------
+          const video5ActTracks = [
+            sheldonBaseTrack,
+            {
+              id: "action",
+              title: "Action Reasoning",
+              shortTitle: "Action",
+              lineClass: "action",
+              taskHint: "Read the emotional dynamics, intent, and interpersonal tension that explain why the mother chose to hide the letter.",
+              clips: sheldonActionClips.slice(sheldonRange[0], sheldonRange[1]),
+              diffHighlights: sheldonActionHighlights.slice(sheldonRange[0], sheldonRange[1])
+            }
+          ];
+
+          const video5ActPhases = [
+            { trackId: "base" },
+            { at: 58, trackId: "action" }
+          ];
+
+          const video5ActQuestions = [
             {
               at: 38,
               text: "When Sheldon suddenly appears at the bar, how do the dad and his friend react, and how does the mood shift?",
@@ -2539,9 +2583,10 @@
             //   questions: video4Questions,
             //   tracks: video4Tracks
             // },
+            // Lane 1 — Sheldon, Task: Object Reasoning
             {
-              id: "video5",
-              label: "Video 5",
+              id: "video5_obj",
+              label: "Task: Object Reasoning",
               title: "Young Sheldon · Caltech Letter",
               url: "https://www.youtube.com/watch?v=iC54QQSe4_I",
               source: "static/videos/merged.mp4",
@@ -2552,9 +2597,28 @@
               memoryFinishGraceSeconds: 4,
               clipTimes: sheldonClipTimes,
               layout: "phased",
-              phases: video5Phases,
-              questions: video5Questions,
-              tracks: video5Tracks
+              phases: video5ObjPhases,
+              questions: video5ObjQuestions,
+              tracks: video5ObjTracks
+            },
+            // Lane 2 — Sheldon, Task: Action Reasoning (general memory persists
+            // longer here; the action-focused task arrives later in the stream)
+            {
+              id: "video5_act",
+              label: "Task: Action Reasoning",
+              title: "Young Sheldon · Caltech Letter",
+              url: "https://www.youtube.com/watch?v=iC54QQSe4_I",
+              source: "static/videos/merged.mp4",
+              sourceVersion: "20260525e",
+              duration: 120,
+              preserveClipTimes: true,
+              memoryDelaySeconds: 6,
+              memoryFinishGraceSeconds: 4,
+              clipTimes: sheldonClipTimes,
+              layout: "phased",
+              phases: video5ActPhases,
+              questions: video5ActQuestions,
+              tracks: video5ActTracks
             },
             {
               id: "video1",
@@ -2808,8 +2872,9 @@
           }
 
           function getPhaseClass(trackId) {
-            if (trackId === "information" || trackId === "reasoning" || trackId === "action") return "information";
+            if (trackId === "information" || trackId === "reasoning") return "information";
             if (trackId === "object" || trackId === "perception") return "object";
+            if (trackId === "action") return "action";
             return "base";
           }
 
@@ -3913,7 +3978,13 @@
             const row = document.createElement("div");
             row.className = "svm-card";
             row.id = demo.id;
-            const displayLabel = comparisonNumber ? `Video ${comparisonNumber}` : "";
+            // For phased lanes (e.g. Sheldon Object/Action), the lane's
+            // task identity (e.g. "Task: Object Reasoning") lives in
+            // demo.label and we surface it as the card sub-label.
+            // For comparison demos we keep the sequential "Video N".
+            const displayLabel = comparisonNumber
+              ? `Video ${comparisonNumber}`
+              : (demo.label || "");
             const phasedClass = demo.layout === "phased" ? " phased" : "";
             const videoControlsAttr = "controls";
             const phasedQuestionsHtml = demo.layout === "phased" ? `
@@ -4040,7 +4111,7 @@
               const heading = document.createElement("h2");
               heading.className = "title is-3 has-text-centered svm-comparison-title";
               heading.style.cssText = "margin: 36px 0 14px;";
-              heading.textContent = "Comparison between general and task-focused memory on multiple tasks";
+              heading.textContent = "Comparison between General and Task-focused Memory on Multiple Tasks";
               rowsRoot.appendChild(heading);
 
               const compNav = document.createElement("nav");
